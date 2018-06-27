@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>上传文件</title>
+</head>
+<body>
+	<form id="form" method="post" enctype="multipart/form-data">
+		<input type="file" name="bigAvatar" id="bigAvatar">
+		<button type="button" id="btn">上传</button>
+	</form>
+
+	<script src="/js/Jcrop-0.9.12/js/jquery.min.js"></script>
+	<script type="text/javascript">
+		$('#btn').click(function () {
+			var formData = new FormData($( "#form" )[0]); 
+			$.ajax({
+    			url: "/doUpload",
+				data: formData,
+				type: "POST",
+				contentType:false, //必须
+       			processData:false, //必须
+				success: function (res) {
+					if (res.code === 200) {
+						window.location.href = '/crop'
+					}
+				},
+				err: function (err) {
+					console.log(err)
+				}
+    		})
+		})
+	</script>
+</body>
+</html>
